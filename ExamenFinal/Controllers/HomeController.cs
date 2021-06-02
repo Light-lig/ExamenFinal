@@ -6,6 +6,8 @@ using System.Web;
 using System.Web.Mvc;
 using ExamenFinal.Rpts;
 using System.IO;
+using CrystalDecisions.Shared;
+using CrystalDecisions.CrystalReports.Engine;
 
 namespace ExamenFinal.Controllers
 {
@@ -63,11 +65,22 @@ namespace ExamenFinal.Controllers
             return View();
         }
 
-        public ActionResult VerReporteProveedorCategoria(string ciudad)
+        public ActionResult VerReporteEmpleados(string ciudad)
         {
             var reporte = new ReporteEmpleados();
             reporte.FileName = Server.MapPath("/Rpts/ReporteEmpleados.rpt");
             reporte.SetParameterValue("ciudad", ciudad);
+            var coninfo = getConexion();
+            TableLogOnInfo logoninfo = new TableLogOnInfo();
+            Tables tables;
+            tables = reporte.Database.Tables;
+            reporte.DataSourceConnections.Clear();
+            foreach (Table item in tables)
+            {
+                logoninfo = item.LogOnInfo;
+                logoninfo.ConnectionInfo = coninfo;
+                item.ApplyLogOnInfo(logoninfo);
+            }
             Response.Buffer = false;
             Response.ClearContent();
             Response.ClearHeaders();
@@ -75,6 +88,16 @@ namespace ExamenFinal.Controllers
             stream.Seek(0, SeekOrigin.Begin);
             return new FileStreamResult(stream, "application/pdf");
         }
+
+        public ConnectionInfo getConexion()
+        {
+            ConnectionInfo crconnectioninfo = new ConnectionInfo();
+            crconnectioninfo.ServerName = ".";
+            crconnectioninfo.DatabaseName = "neptuno";
+            crconnectioninfo.IntegratedSecurity = true;
+            return crconnectioninfo;
+        }
+
 
         public ActionResult ReporteProductoCantidadProducto()
         {
@@ -98,6 +121,17 @@ namespace ExamenFinal.Controllers
             var reporte = new ReporteProductosPorUnidad();
             reporte.FileName = Server.MapPath("/Rpts/ReporteProductosPorUnidad.rpt");
             reporte.SetParameterValue("tipo", tipo);
+            var coninfo = getConexion();
+            TableLogOnInfo logoninfo = new TableLogOnInfo();
+            Tables tables;
+            tables = reporte.Database.Tables;
+            reporte.DataSourceConnections.Clear();
+            foreach (Table item in tables)
+            {
+                logoninfo = item.LogOnInfo;
+                logoninfo.ConnectionInfo = coninfo;
+                item.ApplyLogOnInfo(logoninfo);
+            }
             Response.Buffer = false;
             Response.ClearContent();
             Response.ClearHeaders();
@@ -131,6 +165,17 @@ namespace ExamenFinal.Controllers
             reporte.FileName = Server.MapPath("/Rpts/ReportePedidosEmpleados.rpt");
             reporte.SetParameterValue("nombre", nombre);
             reporte.SetParameterValue("apellidos", apellidos);
+            var coninfo = getConexion();
+            TableLogOnInfo logoninfo = new TableLogOnInfo();
+            Tables tables;
+            tables = reporte.Database.Tables;
+            reporte.DataSourceConnections.Clear();
+            foreach (Table item in tables)
+            {
+                logoninfo = item.LogOnInfo;
+                logoninfo.ConnectionInfo = coninfo;
+                item.ApplyLogOnInfo(logoninfo);
+            }
             Response.Buffer = false;
             Response.ClearContent();
             Response.ClearHeaders();
@@ -156,6 +201,17 @@ namespace ExamenFinal.Controllers
             var reporte = new ProductosPorProveedor();
             reporte.FileName = Server.MapPath("/Rpts/ProductosPorProveedor.rpt");
             reporte.SetParameterValue("idProveedor", idProveedor);
+            var coninfo = getConexion();
+            TableLogOnInfo logoninfo = new TableLogOnInfo();
+            Tables tables;
+            tables = reporte.Database.Tables;
+            reporte.DataSourceConnections.Clear();
+            foreach (Table item in tables)
+            {
+                logoninfo = item.LogOnInfo;
+                logoninfo.ConnectionInfo = coninfo;
+                item.ApplyLogOnInfo(logoninfo);
+            }
             Response.Buffer = false;
             Response.ClearContent();
             Response.ClearHeaders();
@@ -188,6 +244,17 @@ namespace ExamenFinal.Controllers
             var reporte = new ReporteDetallesPedido();
             reporte.FileName = Server.MapPath("/Rpts/ReporteDetallesPedido.rpt");
             reporte.SetParameterValue("idPedido", idPedido);
+            var coninfo = getConexion();
+            TableLogOnInfo logoninfo = new TableLogOnInfo();
+            Tables tables;
+            tables = reporte.Database.Tables;
+            reporte.DataSourceConnections.Clear();
+            foreach (Table item in tables)
+            {
+                logoninfo = item.LogOnInfo;
+                logoninfo.ConnectionInfo = coninfo;
+                item.ApplyLogOnInfo(logoninfo);
+            }
             Response.Buffer = false;
             Response.ClearContent();
             Response.ClearHeaders();

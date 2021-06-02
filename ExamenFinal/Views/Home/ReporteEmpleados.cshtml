@@ -35,7 +35,7 @@
              alert('Debe seleccionar un parametro para el reporte');
              } else {
              var item = combo.val();
-                 var url = "@Url.Action("VerReporteProveedorCategoria", "Home")?ciudad=" +
+                 var url = "@Url.Action("VerReporteEmpleados", "Home")?ciudad=" +
             item;
              $("#reporteParam").attr("src", url).load();
                  }
@@ -47,7 +47,7 @@
                          alert('Debe seleccionar un parametro para el reporte');
                          } else {
                          var item = combo.val();
-                             var url = "@Url.Action("VerReporteProveedorCategoria", "Home")?ciudad=" +
+                             var url = "@Url.Action("VerReporteEmpleados", "Home")?ciudad=" +
                         item;
                          window.open(url);
                          }
